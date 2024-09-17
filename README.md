@@ -24,7 +24,7 @@ This builds the application and puts the executable in the `bin` folder.
 
 ### Prerequisites
 
-Make sure to have an `.env` file in this folder containing the following content (the values must be replaced, of course):
+Make sure to have an `.env` file in this folder containing the following example content (the values must be replaced, of course):
 
 ```bash
 UrlInt=https://your-url-to-int/protocol/openid-connect/token
