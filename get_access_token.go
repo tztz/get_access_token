@@ -22,8 +22,13 @@ func main() {
 		verboseFlag = true
 	}
 
-	token, err := accessToken(env, verboseFlag)
+	url, basicAuthSecret, err := envData(env)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 
+	token, err := accessToken(url, basicAuthSecret, verboseFlag)
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -36,45 +41,46 @@ func main() {
 	}
 }
 
-// accessToken returns an access token (JWT) for the passed environment.
-// If verboseFlag is true, then further details are printed to console.
-func accessToken(env string, verboseFlag bool) (string, error) {
+// envData returns URL and basic auth secret for the given environment.
+func envData(env string) (string, string, error) {
 	authStrings, err := readFile(".env")
 	if err != nil {
-		return "", err
+		return "", "", err
 	}
 
 	var url string
-	var basicAuth string
+	var basicAuthSecret string
 	switch env {
 	case "int":
 		url = authStrings["UrlInt"]
-		basicAuth = authStrings["BasicAuthInt"]
+		basicAuthSecret = authStrings["BasicAuthInt"]
 	case "pre":
 		url = authStrings["UrlPre"]
-		basicAuth = authStrings["BasicAuthPre"]
+		basicAuthSecret = authStrings["BasicAuthPre"]
 	case "prod":
 		url = authStrings["UrlProd"]
-		basicAuth = authStrings["BasicAuthProd"]
+		basicAuthSecret = authStrings["BasicAuthProd"]
 	default:
-		fmt.Println("Pass environment. One of: int, pre, prod")
-		fmt.Println("Pass -v as second argument to get a verbose output.")
-		return "", err
+		return "", "", fmt.Errorf("environment missing, pass one of int, pre, prod")
 	}
 
+	return url, basicAuthSecret, nil
+}
+
+// accessToken returns an access token (JWT) for the passed url and basic auth secret.
+// If verboseFlag is true then further details are printed to console.
+func accessToken(url string, basicAuthSecret string, verboseFlag bool) (string, error) {
 	payload := strings.NewReader("grant_type=client_credentials&scope=read")
 
 	req, err := http.NewRequest("POST", url, payload)
-
 	if err != nil {
 		return "", err
 	}
 
 	req.Header.Add("content-type", "application/x-www-form-urlencoded")
-	req.Header.Add("authorization", "Basic "+basicAuth)
+	req.Header.Add("authorization", "Basic "+basicAuthSecret)
 
 	res, err := http.DefaultClient.Do(req)
-
 	if err != nil {
 		return "", err
 	}
@@ -82,13 +88,15 @@ func accessToken(env string, verboseFlag bool) (string, error) {
 	defer res.Body.Close()
 
 	body, err := io.ReadAll(res.Body)
-
 	if err != nil {
 		return "", err
 	}
 
 	var data map[string]interface{}
 	json.Unmarshal(body, &data)
+	if data == nil {
+		return "", fmt.Errorf("received data is nil, maybe due to a missing VPN connection")
+	}
 	token := data["access_token"].(string)
 
 	if verboseFlag {
