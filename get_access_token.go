@@ -93,11 +93,9 @@ func accessToken(url string, basicAuthSecret string, verboseFlag bool) (string, 
 	}
 
 	var data map[string]interface{}
-	if err := json.Unmarshal(body, &data); err != nil {
-		return "", err
-	}
+	err = json.Unmarshal(body, &data)
 	if data == nil {
-		return "", fmt.Errorf("received data is nil, maybe due to a missing VPN connection")
+		return "", fmt.Errorf("received body cannot be unmarshalled, maybe due to a missing VPN connection: %s\nReceived body:\n%s", err, body)
 	}
 	token := data["access_token"].(string)
 
