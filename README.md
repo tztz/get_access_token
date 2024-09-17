@@ -1,6 +1,6 @@
 # Access Token (JWT) Fetcher
 
-Fetches and prints a JWT (access token) for a given environment.
+Fetches and prints an access token (JWT) for a given environment.
 
 ## Build
 
