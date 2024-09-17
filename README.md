@@ -2,6 +2,14 @@
 
 Fetches and prints an access token (JWT) for a given environment.
 
+## Prerequisites
+
+Install all needed dependencies via
+
+```bash
+scripts/install_deps.sh
+```
+
 ## Build
 
 From this folder execute
