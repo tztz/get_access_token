@@ -10,6 +10,8 @@ From this folder execute
 scripts/build.sh
 ```
 
+This builds the application and puts the executable in the `bin` folder.
+
 ## Run
 
 ### Prerequisites
