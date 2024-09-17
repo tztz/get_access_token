@@ -12,7 +12,7 @@ import (
 // main prints an access token (JWT) for the environment passed via command-line argument.
 func main() {
 	var env string
-	var verboseFlag bool = false
+	var verboseFlag bool
 
 	if len(os.Args) > 1 {
 		env = os.Args[1]
