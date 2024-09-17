@@ -43,7 +43,7 @@ func main() {
 
 // envData returns URL and basic auth secret for the given environment.
 func envData(env string) (string, string, error) {
-	authStrings, err := readFile(".env")
+	authStrings, err := readFile()
 	if err != nil {
 		return "", "", err
 	}
@@ -93,7 +93,9 @@ func accessToken(url string, basicAuthSecret string, verboseFlag bool) (string, 
 	}
 
 	var data map[string]interface{}
-	json.Unmarshal(body, &data)
+	if err := json.Unmarshal(body, &data); err != nil {
+		return "", err
+	}
 	if data == nil {
 		return "", fmt.Errorf("received data is nil, maybe due to a missing VPN connection")
 	}
@@ -109,8 +111,8 @@ func accessToken(url string, basicAuthSecret string, verboseFlag bool) (string, 
 }
 
 // readFile reads the environment file and returns the content as map.
-func readFile(filename string) (map[string]string, error) {
-	dat, err := os.ReadFile(filename)
+func readFile() (map[string]string, error) {
+	dat, err := os.ReadFile(".env")
 	if err != nil {
 		return nil, err
 	}
