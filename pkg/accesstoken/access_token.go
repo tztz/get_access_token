@@ -10,7 +10,7 @@ import (
 
 // New returns an access token (JWT) together with the detailed response body
 // for the passed url and basic auth secret.
-func New(url string, basicAuthSecret string) (string, string, error) {
+func New(url string, basicAuthSecret string) (token string, details string, err error) {
 	payload := strings.NewReader("grant_type=client_credentials&scope=read")
 
 	req, err := http.NewRequest("POST", url, payload)
@@ -38,9 +38,9 @@ func New(url string, basicAuthSecret string) (string, string, error) {
 	if err != nil {
 		return "", "", fmt.Errorf("received body cannot be unmarshalled: %s\nReceived body:\n%s", err, body)
 	}
-	token := data["access_token"].(string)
+	token = data["access_token"].(string)
 
-	details := "---- Response body ----\n" + string(body) + "\n---- End of response body ----"
+	details = "---- Response body ----\n" + string(body) + "\n---- End of response body ----"
 
 	return token, details, nil
 }
