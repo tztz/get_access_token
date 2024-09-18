@@ -15,6 +15,8 @@ func TestShouldSuccessfullyReturnAccessTokenAndDetails(t *testing.T) {
 	expectedResponseStr := fmt.Sprintf(`{"access_token":"%s","expires_in":300,"refresh_expires_in":0,"token_type":"Bearer","not-before-policy":0,"scope":"read profile email"}`, expectedTokenStr)
 	expectedDetails := fmt.Sprintf("---- Response body ----\n%s\n---- End of response body ----", expectedResponseStr)
 
+	// and
+
 	httpmock.Activate()
 	defer httpmock.DeactivateAndReset()
 
