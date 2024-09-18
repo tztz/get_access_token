@@ -2,7 +2,9 @@
 
 Fetches and prints an access token (JWT) for a given environment.
 
-## Prerequisites
+## Build
+
+### Build prerequisites
 
 Install all needed dependencies via
 
@@ -10,7 +12,9 @@ Install all needed dependencies via
 scripts/install_deps.sh
 ```
 
-## Build
+Now, tools like `staticcheck` and `gosec` are installed and ready to be used during the build.
+
+### Build the application
 
 From this folder execute
 
@@ -19,12 +23,13 @@ scripts/build.sh
 ```
 
 This builds the application and puts the executable in the `bin` folder.
+The `bin` folder is ignored and not committed to Git.
 
 ## Run
 
-### Prerequisites
+### Run prerequisites
 
-Make sure to have an `.env` file in this folder containing the following example content (the values must be replaced, of course):
+Make sure to have an `.env` file in this folder containing the following content (the example values must be replaced, of course):
 
 ```bash
 UrlInt=https://your-url-to-int/protocol/openid-connect/token
