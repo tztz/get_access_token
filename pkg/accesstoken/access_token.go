@@ -8,7 +8,8 @@ import (
 	"strings"
 )
 
-// New returns an access token (JWT) for the passed url and basic auth secret.
+// New returns an access token (JWT) together with the detailed response body
+// for the passed url and basic auth secret.
 func New(url string, basicAuthSecret string) (string, string, error) {
 	payload := strings.NewReader("grant_type=client_credentials&scope=read")
 
