@@ -34,7 +34,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	if verboseFlag0 {
+	if verboseFlag {
 		fmt.Printf("\nAccess token for %s: %s\n", env, token)
 	} else {
 		fmt.Println(token)
