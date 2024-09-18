@@ -1,5 +1,7 @@
 # Access Token (JWT) Fetcher
 
+![Build status](https://github.com/github/docs/actions/workflows/build.yml/badge.svg)
+
 Fetches and prints an access token (JWT) for a given environment.
 
 ## Build
