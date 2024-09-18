@@ -6,4 +6,4 @@ go vet && \
 go fix && \
 gosec ./... && \
 staticcheck -go 1.23.1 ./... && \
-go build -o bin/get_access_token
+go build -v -o bin/get_access_token
