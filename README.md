@@ -31,7 +31,7 @@ The `bin` folder is ignored and not committed to Git.
 
 ### Run prerequisites
 
-Make sure to have an `.env` file in this folder containing the following content (the example values must be replaced, of course):
+Make sure you have set the following environment variables (the example values must be replaced, of course):
 
 ```bash
 RD_OIDC_TOKEN_UrlInt=https://your-url-to-int/protocol/openid-connect/token
@@ -42,6 +42,8 @@ RD_OIDC_TOKEN_BasicAuthInt=your-basic-auth-secret-for-int
 RD_OIDC_TOKEN_BasicAuthPre=your-basic-auth-secret-for-pre
 RD_OIDC_TOKEN_BasicAuthProd=your-basic-auth-secret-for-prod
 ```
+
+Alternatively, you can have an `.env` file in this folder containing the above variables.
 
 The `.env` file is ignored and not committed to Git.
 
