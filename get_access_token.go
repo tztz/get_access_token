@@ -3,6 +3,8 @@ package main
 import (
 	"fmt"
 	"os"
+	"runtime"
+	"strings"
 
 	"github.com/tztz/get_access_token/internal/environment"
 	"github.com/tztz/get_access_token/pkg/accesstoken"
@@ -21,7 +23,7 @@ func main() {
 		verboseFlag = true
 	}
 
-	url, basicAuthSecret, err := environment.Data(env)
+	url, basicAuthSecret, err := environment.Data(env, getRootPath())
 	if err != nil {
 		fmt.Println(err)
 		os.Exit(1)
@@ -39,4 +41,11 @@ func main() {
 	} else {
 		fmt.Println(token)
 	}
+}
+
+// getRootPath returns the path to the root of this project.
+func getRootPath() string {
+	_, rootPath, _, _ := runtime.Caller(0)
+	elems := strings.Split(rootPath, "/")
+	return strings.Join(elems[0:len(elems)-1], "/")
 }

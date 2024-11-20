@@ -3,6 +3,7 @@ package environment
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 	"strings"
 )
 
@@ -14,8 +15,8 @@ const BASIC_AUTH_PRE = "RD_OIDC_TOKEN_BasicAuthPre"
 const BASIC_AUTH_PROD = "RD_OIDC_TOKEN_BasicAuthProd"
 
 // Data returns URL and basic auth secret for the given environment.
-func Data(env string) (url string, basicAuthSecret string, err error) {
-	authStrings, err := readEnv()
+func Data(env string, rootPath string) (url string, basicAuthSecret string, err error) {
+	authStrings, err := readEnv(rootPath)
 	if err != nil {
 		return "", "", err
 	}
@@ -37,12 +38,12 @@ func Data(env string) (url string, basicAuthSecret string, err error) {
 	return url, basicAuthSecret, nil
 }
 
-// readEnv reads the environment file (.env), if present, and the resp. environment variables.
-// Returns the content as map.
+// readEnv reads the environment file (.env) from the given root path, if present, and the
+// resp. environment variables. Both are merged. Returns the content as map.
 // If necessary properties are missing then an error is returned.
-func readEnv() (content map[string]string, err error) {
+func readEnv(rootPath string) (content map[string]string, err error) {
 	authStrings1 := readEnvVariables()
-	authStrings2, _ := readEnvFile()
+	authStrings2, _ := readEnvFile(rootPath)
 
 	// Merge both maps: override environment variables with values from the environment file
 	for k, v := range authStrings2 {
@@ -68,11 +69,11 @@ func readEnvVariables() map[string]string {
 	}
 }
 
-// readEnvFile reads the environment file (.env) in the root folder of this module
-// and returns the content as map.
+// readEnvFile reads the environment file (.env) from the given root path and
+// returns the content as map.
 // If the file cannot be read then an error is returned.
-func readEnvFile() (content map[string]string, err error) {
-	dat, err := os.ReadFile(".env")
+func readEnvFile(rootPath string) (content map[string]string, err error) {
+	dat, err := os.ReadFile(filepath.Clean(rootPath + "/.env"))
 	if err != nil {
 		return nil, fmt.Errorf("environment file cannot be read: %w", err)
 	}
@@ -85,6 +86,9 @@ func readEnvFile() (content map[string]string, err error) {
 		s := strings.TrimSpace(rawAuthString)
 		if s != "" {
 			keyValue := strings.SplitN(s, "=", 2)
+			if len(keyValue) != 2 {
+				continue
+			}
 			content[strings.TrimSpace(keyValue[0])] = strings.TrimSpace(keyValue[1])
 		}
 	}
