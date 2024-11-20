@@ -6,12 +6,12 @@ import (
 	"strings"
 )
 
-const URL_INT = "UrlInt"
-const URL_PRE = "UrlPre"
-const URL_PROD = "UrlProd"
-const BASIC_AUTH_INT = "BasicAuthInt"
-const BASIC_AUTH_PRE = "BasicAuthPre"
-const BASIC_AUTH_PROD = "BasicAuthProd"
+const URL_INT = "RD_OIDC_TOKEN_UrlInt"
+const URL_PRE = "RD_OIDC_TOKEN_UrlPre"
+const URL_PROD = "RD_OIDC_TOKEN_UrlProd"
+const BASIC_AUTH_INT = "RD_OIDC_TOKEN_BasicAuthInt"
+const BASIC_AUTH_PRE = "RD_OIDC_TOKEN_BasicAuthPre"
+const BASIC_AUTH_PROD = "RD_OIDC_TOKEN_BasicAuthProd"
 
 // Data returns URL and basic auth secret for the given environment.
 func Data(env string) (url string, basicAuthSecret string, err error) {

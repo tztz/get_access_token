@@ -34,13 +34,13 @@ The `bin` folder is ignored and not committed to Git.
 Make sure to have an `.env` file in this folder containing the following content (the example values must be replaced, of course):
 
 ```bash
-UrlInt=https://your-url-to-int/protocol/openid-connect/token
-UrlPre=https://your-url-to-pre/protocol/openid-connect/token
-UrlProd=https://your-url-to-prod/protocol/openid-connect/token
+RD_OIDC_TOKEN_UrlInt=https://your-url-to-int/protocol/openid-connect/token
+RD_OIDC_TOKEN_UrlPre=https://your-url-to-pre/protocol/openid-connect/token
+RD_OIDC_TOKEN_UrlProd=https://your-url-to-prod/protocol/openid-connect/token
 
-BasicAuthInt=your-basic-auth-secret-for-int
-BasicAuthPre=your-basic-auth-secret-for-pre
-BasicAuthProd=your-basic-auth-secret-for-prod
+RD_OIDC_TOKEN_BasicAuthInt=your-basic-auth-secret-for-int
+RD_OIDC_TOKEN_BasicAuthPre=your-basic-auth-secret-for-pre
+RD_OIDC_TOKEN_BasicAuthProd=your-basic-auth-secret-for-prod
 ```
 
 The `.env` file is ignored and not committed to Git.
