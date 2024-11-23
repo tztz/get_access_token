@@ -19,7 +19,7 @@ Now, tools like `staticcheck` and `gosec` are installed and ready to be used dur
 
 ### Build the application
 
-From this folder execute
+From this project's root directory execute
 
 ```bash
 scripts/build.sh
