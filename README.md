@@ -1,8 +1,9 @@
-# Access Token (JWT) Fetcher
+# get_access_token - an Access Token (JWT) Fetcher
 
 ![Build status](https://github.com/tztz/get_access_token/actions/workflows/build.yml/badge.svg)
 
-Fetches and prints an access token (JWT) for a given environment.
+The CLI tool `get_access_token` fetches and prints an access tokens (JWT) for a given environment/stage like e.g. `int`.
+The URLs and credentials for the different environments/stages are configured via environment variables or an `.env` file.
 
 ## Build
 
@@ -24,7 +25,8 @@ From this folder execute
 scripts/build.sh
 ```
 
-This builds the application and puts the executable in the `bin` folder.
+This builds the application and puts the executable in the `bin` folder of this project's root directory.
+
 The `bin` folder is ignored and not committed to Git.
 
 ## Run
@@ -43,17 +45,19 @@ RD_OIDC_TOKEN_BasicAuthPre=your-basic-auth-secret-for-pre
 RD_OIDC_TOKEN_BasicAuthProd=your-basic-auth-secret-for-prod
 ```
 
-Alternatively, you can have an `.env` file in this folder containing the above variables.
+Alternatively, you can have an `.env` file in this project's root directory containing the above variables.
 
 The `.env` file is ignored and not committed to Git.
 
 ### Run the application
 
-From this folder execute the application and pass the desired environment as first argument, e.g.:
+From this project's root directory execute the application and pass the desired environment/stage as first argument, e.g.:
 
 ```bash
 ./bin/get_access_token int
 ```
+
+This prints an access token (JWT) for the `int` environment/stage.
 
 In order to get a verbose output pass `-v` as second argument:
 
