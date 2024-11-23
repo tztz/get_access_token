@@ -2,7 +2,7 @@
 
 ![Build status](https://github.com/tztz/get_access_token/actions/workflows/build.yml/badge.svg)
 
-The CLI tool `get_access_token` fetches and prints an access tokens (JWT) for a given environment/stage like e.g. `int`.
+The CLI tool `get_access_token` fetches and prints an access token (JWT) for a given environment/stage like e.g. `int`.
 The URLs and credentials for the different environments/stages are configured via environment variables or an `.env` file.
 
 ## Build
